@@ -7,6 +7,9 @@
 //
 
 #include <iostream>
+#include "council/council.cpp"
+#include "mnist/mnist_reader.hpp"
+using namespace std;
 
 int main(int argc, const char * argv[]) {
     // insert code here...

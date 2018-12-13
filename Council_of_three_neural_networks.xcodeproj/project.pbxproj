@@ -26,11 +26,11 @@
 /* Begin PBXFileReference section */
 		FE219D1A21C2DEFF00C91FFB /* Council_of_three_neural_networks */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Council_of_three_neural_networks; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE219D1D21C2DEFF00C91FFB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		FE219D2421C2DF5C00C91FFB /* mnist-master */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "mnist-master"; sourceTree = "<group>"; };
 		FE219D2521C2DF5D00C91FFB /* network */ = {isa = PBXFileReference; lastKnownFileType = folder; path = network; sourceTree = "<group>"; };
 		FE219D2921C2E04200C91FFB /* council.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = council.cpp; sourceTree = "<group>"; };
 		FE219D2A21C2E04200C91FFB /* council.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = council.hpp; sourceTree = "<group>"; };
 		FE219D2C21C2E10D00C91FFB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		FE219D2D21C2F96D00C91FFB /* mnist */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mnist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				FE219D1D21C2DEFF00C91FFB /* main.cpp */,
+				FE219D2D21C2F96D00C91FFB /* mnist */,
 				FE219D2821C2E01B00C91FFB /* council */,
-				FE219D2421C2DF5C00C91FFB /* mnist-master */,
 				FE219D2521C2DF5D00C91FFB /* network */,
 			);
 			path = Council_of_three_neural_networks;
