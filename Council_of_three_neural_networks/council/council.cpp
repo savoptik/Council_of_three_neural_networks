@@ -50,7 +50,7 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
     filtrTrainingSimples.clear();
     vector<int> indexes;
     int coin = flipACoin();
-    while ((filtrTrainingSimples.size() <= numberOfSimple) && (i < trainSimples.size())) {
+    while ((filtrTrainingSimples.size() < numberOfSimple) && (i < trainSimples.size())) {
         MrFirst.directPropagation(trainSimples[i]);
         if (coin == EAGLE) {
             if (theTransformationOfTheVectorOfOutputSignals(lables[i]) == theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector())) {
