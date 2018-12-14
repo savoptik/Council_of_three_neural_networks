@@ -83,7 +83,7 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
 }
 
 int council::flipACoin() { 
-    default_random_engine dra(time(0));
+    default_random_engine dra(static_cast<unsigned int>(time(0)));
     uniform_int_distribution<> urd(0, 1);
     return urd(dra);
 }

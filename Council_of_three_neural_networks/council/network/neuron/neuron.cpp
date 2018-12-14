@@ -30,7 +30,7 @@ std::vector<double> &neuron::getVectorOfWeights() {
 }
 
 neuron::neuron(int size, const int acFunc, const double afa, const double afb) {
-    std::default_random_engine dra(time(0));
+    std::default_random_engine dra(static_cast<unsigned int>(time(0)));
 //    std::mt19937 gen(rd.entropy());
     std::uniform_real_distribution<> urd(-0.8, 0.8);
     activationFunction = acFunc; // записываем функцию активации

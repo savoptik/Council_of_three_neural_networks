@@ -130,7 +130,7 @@ void network::train(std::vector<std::vector<double> > &TrainingSample, std::vect
     double currentError = 0.1, backError = 0; // текущая и предыдущая ошибка
     std::vector<int> indexes; // вектор индексов
     indexes.resize(response.size()); // задаём размер массива индексов
-    for (long i = 0; i < indexes.size(); i++) {
+    for (int i = 0; i < indexes.size(); i++) {
         indexes[i] = i; // заполняем массив индексов индексами по порядку
     }
     // Пока количество эпох меньше заданного, текущая ошибка меньше предыдущей и текущая ошибка не привышает заданного порога

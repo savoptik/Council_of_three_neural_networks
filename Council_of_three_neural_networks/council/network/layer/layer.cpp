@@ -34,7 +34,7 @@ std::vector<neuron> &layer::accessToTheNeuronVector() {
 }
 
 layer::layer(const int number, const int size, const int af, const double a, const double b) {
-    std::default_random_engine dra(time(0));
+    std::default_random_engine dra(static_cast<unsigned int>(time(0)));
     std::uniform_real_distribution<> urd(-0.8, 0.8);
     // создание нейронов
     for (int i = 0; i < number; i++) {
@@ -108,7 +108,7 @@ void layer::toRebuildThePointers() {
 }
 
 layer::layer(const int NumberOfNeurons, const int TheSizeOfTheVectorOfWeights) {
-    std::default_random_engine dra(time(0));
+    std::default_random_engine dra(static_cast<unsigned int>(time(0)));
     //    std::mt19937 gen(rd.entropy());
     std::uniform_real_distribution<> urd(-0.8, 0.8);
     neurons.resize(NumberOfNeurons);

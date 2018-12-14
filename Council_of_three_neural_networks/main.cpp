@@ -24,7 +24,7 @@ int main(int argc, const char * argv[]) {
     convertingLabels(ds.training_labels, convertResponse);
     cout << "После преобразования " << trainData.size() << " примеров и " << convertResponse.size() << " меток.\n";
     cout << "Готовлю сеть:\n";
-    council couns = council(numbersOfNuerons, ds.training_images[0].size());
+    council couns = council(numbersOfNuerons, static_cast<int>(ds.training_images[0].size()));
     couns.train(trainData, convertResponse);
     return 0;
 }
