@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		FE219D1E21C2DEFF00C91FFB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE219D1D21C2DEFF00C91FFB /* main.cpp */; };
 		FE219D2B21C2E04200C91FFB /* council.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FE219D2921C2E04200C91FFB /* council.cpp */; };
-		FEFC039A21C3EA32007C0CD9 /* network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFC039821C3EA32007C0CD9 /* network.cpp */; };
-		FEFC039E21C3EA87007C0CD9 /* neuron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFC039C21C3EA86007C0CD9 /* neuron.cpp */; };
-		FEFC03A221C3EADC007C0CD9 /* layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFC03A021C3EADC007C0CD9 /* layer.cpp */; };
+		FEFC03AE21C3F03A007C0CD9 /* network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFC03AC21C3F039007C0CD9 /* network.cpp */; };
+		FEFC03B221C3F085007C0CD9 /* neuron.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFC03B021C3F085007C0CD9 /* neuron.cpp */; };
+		FEFC03B621C3F0C9007C0CD9 /* layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FEFC03B421C3F0C9007C0CD9 /* layer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,12 +33,12 @@
 		FE219D2A21C2E04200C91FFB /* council.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = council.hpp; sourceTree = "<group>"; };
 		FE219D2C21C2E10D00C91FFB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FEFC037C21C3E1D4007C0CD9 /* Council_of_three_neural_networks.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Council_of_three_neural_networks.xcodeproj; sourceTree = "<group>"; };
-		FEFC039821C3EA32007C0CD9 /* network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = network.cpp; sourceTree = "<group>"; };
-		FEFC039921C3EA32007C0CD9 /* network.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = network.hpp; sourceTree = "<group>"; };
-		FEFC039C21C3EA86007C0CD9 /* neuron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = neuron.cpp; sourceTree = "<group>"; };
-		FEFC039D21C3EA87007C0CD9 /* neuron.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = neuron.hpp; sourceTree = "<group>"; };
-		FEFC03A021C3EADC007C0CD9 /* layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layer.cpp; sourceTree = "<group>"; };
-		FEFC03A121C3EADC007C0CD9 /* layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = layer.hpp; sourceTree = "<group>"; };
+		FEFC03AC21C3F039007C0CD9 /* network.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = network.cpp; sourceTree = "<group>"; };
+		FEFC03AD21C3F039007C0CD9 /* network.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = network.hpp; sourceTree = "<group>"; };
+		FEFC03B021C3F085007C0CD9 /* neuron.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = neuron.cpp; sourceTree = "<group>"; };
+		FEFC03B121C3F085007C0CD9 /* neuron.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = neuron.hpp; sourceTree = "<group>"; };
+		FEFC03B421C3F0C9007C0CD9 /* layer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = layer.cpp; sourceTree = "<group>"; };
+		FEFC03B521C3F0C9007C0CD9 /* layer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = layer.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 		FE219D2821C2E01B00C91FFB /* council */ = {
 			isa = PBXGroup;
 			children = (
-				FEFC039421C3E9C4007C0CD9 /* network */,
+				FEFC03AB21C3EFF2007C0CD9 /* network */,
 				FE219D2921C2E04200C91FFB /* council.cpp */,
 				FE219D2A21C2E04200C91FFB /* council.hpp */,
 			);
@@ -94,31 +94,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FEFC039421C3E9C4007C0CD9 /* network */ = {
+		FEFC03AB21C3EFF2007C0CD9 /* network */ = {
 			isa = PBXGroup;
 			children = (
-				FEFC039F21C3EAA9007C0CD9 /* layer */,
-				FEFC039B21C3EA53007C0CD9 /* neuron */,
-				FEFC039821C3EA32007C0CD9 /* network.cpp */,
-				FEFC039921C3EA32007C0CD9 /* network.hpp */,
+				FEFC03B321C3F0A4007C0CD9 /* layer */,
+				FEFC03AF21C3F050007C0CD9 /* neuron */,
+				FEFC03AC21C3F039007C0CD9 /* network.cpp */,
+				FEFC03AD21C3F039007C0CD9 /* network.hpp */,
 			);
 			path = network;
 			sourceTree = "<group>";
 		};
-		FEFC039B21C3EA53007C0CD9 /* neuron */ = {
+		FEFC03AF21C3F050007C0CD9 /* neuron */ = {
 			isa = PBXGroup;
 			children = (
-				FEFC039C21C3EA86007C0CD9 /* neuron.cpp */,
-				FEFC039D21C3EA87007C0CD9 /* neuron.hpp */,
+				FEFC03B021C3F085007C0CD9 /* neuron.cpp */,
+				FEFC03B121C3F085007C0CD9 /* neuron.hpp */,
 			);
 			path = neuron;
 			sourceTree = "<group>";
 		};
-		FEFC039F21C3EAA9007C0CD9 /* layer */ = {
+		FEFC03B321C3F0A4007C0CD9 /* layer */ = {
 			isa = PBXGroup;
 			children = (
-				FEFC03A021C3EADC007C0CD9 /* layer.cpp */,
-				FEFC03A121C3EADC007C0CD9 /* layer.hpp */,
+				FEFC03B421C3F0C9007C0CD9 /* layer.cpp */,
+				FEFC03B521C3F0C9007C0CD9 /* layer.hpp */,
 			);
 			path = layer;
 			sourceTree = "<group>";
@@ -187,9 +187,9 @@
 			files = (
 				FE219D1E21C2DEFF00C91FFB /* main.cpp in Sources */,
 				FE219D2B21C2E04200C91FFB /* council.cpp in Sources */,
-				FEFC03A221C3EADC007C0CD9 /* layer.cpp in Sources */,
-				FEFC039E21C3EA87007C0CD9 /* neuron.cpp in Sources */,
-				FEFC039A21C3EA32007C0CD9 /* network.cpp in Sources */,
+				FEFC03B621C3F0C9007C0CD9 /* layer.cpp in Sources */,
+				FEFC03B221C3F085007C0CD9 /* neuron.cpp in Sources */,
+				FEFC03AE21C3F03A007C0CD9 /* network.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
