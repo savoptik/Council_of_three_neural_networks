@@ -27,3 +27,19 @@ council::council(std::vector<int>& numberOfNuerons, const int sizeOfVectorOfWeig
         cout << decisiveExpert.accessToLayers()[i].accessToTheNeuronVector().size() << " ";
     } cout << endl;
 }
+
+void council::train(std::vector<std::vector<double> > &trainSimples, std::vector<std::vector<double> > &lables) { 
+    vector<vector<double>> firstTrainingSimples; // вектор для выборки обучения первой сети
+    vector<vector<double>> firstLables; // набор меток для обучения первой сети
+    for (int i  = 0; i < 10000; i++) { // забираем из общей выборки 10000 примеров
+        firstTrainingSimples.push_back(trainSimples[i]);
+        firstLables.push_back(lables[i]);
+    }
+    cout << "тренирую первую сеть \n";
+    MrFirst.train(firstTrainingSimples, firstLables, 0.01, 0.6, 100);
+    cout << " Удаляю из выборки ненужные элементы, осталось ";
+        trainSimples.erase(trainSimples.begin(), trainSimples.begin()+9999);
+    lables.erase(lables.begin(), lables.begin()+9999);
+    cout << trainSimples.size() << " примеров и " << lables.size() << " меток\n";
+}
+

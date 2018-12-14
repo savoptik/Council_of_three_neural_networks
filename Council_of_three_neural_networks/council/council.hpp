@@ -19,6 +19,13 @@ class council {
 public:
     council() {}
     council(std::vector<int>& numberOfNuerons, const int sizeOfVectorOfWeights); // конструктор, который сконструирует всех трёх экспертов
+    /**
+     Запуск обучения
+
+     @param trainSimples вектор примеров
+     @param lables вектор откликов
+     */
+    void train(std::vector<std::vector<double>>& trainSimples, std::vector<std::vector<double>>& lables);
 };
 
 #endif /* council_hpp */
