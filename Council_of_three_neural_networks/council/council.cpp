@@ -31,18 +31,54 @@ council::council(std::vector<int>& numberOfNuerons, const int sizeOfVectorOfWeig
 }
 
 void council::train(std::vector<std::vector<double> > &trainSimples, std::vector<std::vector<double> > &lables) { 
-    vector<vector<double>> firstTrainingSimples; // вектор для выборки обучения первой сети
-    vector<vector<double>> firstLables; // набор меток для обучения первой сети
+    vector<vector<double>> filtrTrainingSimples; // вектор для выборки обучения первой сети
+    vector<vector<double>> filtrLables; // набор меток для обучения первой сети
     for (int i  = 0; i < 10000; i++) { // забираем из общей выборки 10000 примеров
-        firstTrainingSimples.push_back(trainSimples[i]);
-        firstLables.push_back(lables[i]);
+        filtrTrainingSimples.push_back(trainSimples[i]);
+        filtrLables.push_back(lables[i]);
     }
-    cout << "тренирую первую сеть \n";
-    MrFirst.train(firstTrainingSimples, firstLables, 0.01, 0.6, 100);
     cout << " Удаляю из выборки ненужные элементы, осталось ";
-        trainSimples.erase(trainSimples.begin(), trainSimples.begin()+9999);
-    lables.erase(lables.begin(), lables.begin()+9999);
+    trainSimples.erase(trainSimples.begin(), trainSimples.begin()+10000);
+    lables.erase(lables.begin(), lables.begin()+10000);
     cout << trainSimples.size() << " примеров и " << lables.size() << " меток\n";
+    cout << "тренирую первую сеть  на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
+    MrFirst.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
+    cout << "Отбираем примеры для обучения второй сети:\n";
+    int i = 0;
+    filtrLables.clear();
+    filtrTrainingSimples.clear();
+    vector<int> indexes;
+    int coin = flipACoin();
+    while ((filtrTrainingSimples.size() <= 10000) && (i < trainSimples.size())) {
+        MrFirst.directPropagation(trainSimples[i]);
+        if (coin == EAGLE) {
+            if (theTransformationOfTheVectorOfOutputSignals(lables[i]) == theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector())) {
+                indexes.push_back(i);
+                filtrTrainingSimples.push_back(trainSimples[i]);
+                filtrLables.push_back(lables[i]);
+                coin = flipACoin();
+            }
+        } else if (coin == TAILS) {
+            if (theTransformationOfTheVectorOfOutputSignals(lables[i]) != theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector())) {
+                indexes.push_back(i);
+                filtrTrainingSimples.push_back(trainSimples[i]);
+                filtrLables.push_back(lables[i]);
+            }
+        }
+        i++;
+    }
+    vector<vector<double>> timeTrainingSimples, timeLables;
+    for (i = 0; i < trainSimples.size(); i++) {
+        if (inVector(indexes, i) == false) {
+            timeTrainingSimples.push_back(trainSimples[i]);
+            timeLables.push_back(lables[i]);
+        }
+    }
+    trainSimples.clear();
+    lables.clear();
+    cout << "Осталось в основной выборке " << timeTrainingSimples.size() << " примеров и " << timeLables.size() << " меток\n";
+    cout << "Обучаю вторую сеть на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
+    MrSecond.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
 }
 
 int council::flipACoin() { 
@@ -51,4 +87,56 @@ int council::flipACoin() {
     return urd(dra);
 }
 
+void convertingLabels(std::vector<u_char>& inLables, std::vector<std::vector<double>>& lables) {
+    // преобразуем вектор откликов к виду, в котором еденица означает число
+    lables.resize(inLables.size());
+    for (long i = 0; i < lables.size(); i++) { // обходим вектор
+        lables[i].resize(10); // задаём размер
+        lables[i][inLables[i]] = 1; // записываем на соответствующую позицию единицу
+    }
+}
 
+void imageConversion(std::vector<std::vector<u_char>>& charImages, std::vector<std::vector<double>>& outImages) {
+    outImages.resize(charImages.size());
+    for (int i  = 0; i < outImages.size(); i++) {
+        outImages[i].resize(charImages[i].size());
+        for (int j = 0; j < outImages[i].size(); j++) {
+            outImages[i][j] = charImages[i][j];
+        }
+        outImages[i].push_back(1);
+    }
+}
+
+int theTransformationOfTheVectorOfOutputSignals(std::vector<double>& outputSignal) {
+    int result = 0;
+    double max = 0;
+    for (int i = 0; i < outputSignal.size(); i++) {
+        if (outputSignal[i] > max) {
+            max = outputSignal[i];
+            result = i;
+        }
+    }
+    return result;
+}
+
+int theTransformationOfTheVectorOfOutputSignalsP(std::vector<double *>& outputSignal) {
+    int result = 0;
+    double max = 0;
+    for (int i = 0; i < outputSignal.size()-1; i++) {
+        if (*outputSignal[i] > max) {
+            max = *outputSignal[i];
+            result = i;
+        }
+    }
+    return result;
+}
+
+bool inVector(std::vector<int>& vec, const int n) {
+    bool response = false;
+    int i = 0;
+    while ((response == false) && (i < vec.size())) {
+        response = n == vec[i]? true: false;
+        i++;
+    }
+    return response;
+}

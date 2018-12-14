@@ -8,10 +8,23 @@
 
 #include <iostream>
 #include "council/council.hpp"
+#include "mnist/mnist_reader.hpp"
+#include "mnist/mnist_utils.hpp"
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    auto ds = mnist::read_dataset();
+    vector<int> numbersOfNuerons = {400, 10};
+    cout << "Читаю базу MNIST\n";
+    mnist::binarize_dataset(ds);
+    cout << "прочитано " << ds.training_images.size() << " тренеровочных примеров, " << ds.training_labels.size() << " меток, " << ds.test_images.size() << " тестовых примеров и " << ds.test_labels.size() << " меток.\n";
+    vector<vector<double>> convertResponse;
+    vector<vector<double>> trainData;
+    imageConversion(ds.training_images, trainData);
+    convertingLabels(ds.training_labels, convertResponse);
+    cout << "После преобразования " << trainData.size() << " примеров и " << convertResponse.size() << " меток.\n";
+    cout << "Готовлю сеть:\n";
+    council couns = council(numbersOfNuerons, ds.training_images[0].size());
+    couns.train(trainData, convertResponse);
     return 0;
 }

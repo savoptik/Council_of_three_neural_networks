@@ -36,4 +36,10 @@ public:
     void train(std::vector<std::vector<double>>& trainSimples, std::vector<std::vector<double>>& lables);
 };
 
+void convertingLabels(std::vector<u_char>& inLables, std::vector<std::vector<double>>& lables);
+void imageConversion(std::vector<std::vector<u_char>>& charImages, std::vector<std::vector<double>>& outImages);
+int theTransformationOfTheVectorOfOutputSignals(std::vector<double>& outputSignal);
+int theTransformationOfTheVectorOfOutputSignalsP(std::vector<double *>& outputSignal);
+bool inVector(std::vector<int>& vec, const int n);
+
 #endif /* council_hpp */
