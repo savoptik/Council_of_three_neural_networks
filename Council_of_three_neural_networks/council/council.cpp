@@ -10,21 +10,22 @@
 #include <iostream>
 #include <random>
 #include <algorithm>
+#define numberOfSimple (5000)
 using namespace std;
 
 council::council(std::vector<int>& numberOfNuerons, const int sizeOfVectorOfWeights) {
     MrFirst = network(numberOfNuerons, sizeOfVectorOfWeights, 1, 1);
     MrSecond = network(numberOfNuerons, sizeOfVectorOfWeights, 1, 1);
     decisiveExpert = network(numberOfNuerons, sizeOfVectorOfWeights, 1, 1);
-    cout << "первый эксперт имеет в своём составе " << MrFirst.accessToLayers().size() << " размерами: ";
+    cout << "первый эксперт имеет в своём составе " << MrFirst.accessToLayers().size() << " слоёв размерами: ";
     for (int i = 0; i < MrFirst.accessToLayers().size(); i++) {
         cout << MrFirst.accessToLayers()[i].accessToTheNeuronVector().size() << " ";
     } cout << endl;
-    cout << "Второй эксперт имеет в своём составе " << MrSecond.accessToLayers().size() << " размерами: ";
+    cout << "Второй эксперт имеет в своём составе " << MrSecond.accessToLayers().size() << " слоёв размерами: ";
     for (int i = 0; i < MrSecond.accessToLayers().size(); i++) {
         cout << MrSecond.accessToLayers()[i].accessToTheNeuronVector().size() << " ";
     } cout << endl;
-    cout << "Решающий эксперт имеет в своём составе " << MrFirst.accessToLayers().size() << " размерами: ";
+    cout << "Решающий эксперт имеет в своём составе " << MrFirst.accessToLayers().size() << " слоёв размерами: ";
     for (int i = 0; i < decisiveExpert.accessToLayers().size(); i++) {
         cout << decisiveExpert.accessToLayers()[i].accessToTheNeuronVector().size() << " ";
     } cout << endl;
@@ -33,13 +34,13 @@ council::council(std::vector<int>& numberOfNuerons, const int sizeOfVectorOfWeig
 void council::train(std::vector<std::vector<double> > &trainSimples, std::vector<std::vector<double> > &lables) { 
     vector<vector<double>> filtrTrainingSimples; // вектор для выборки обучения первой сети
     vector<vector<double>> filtrLables; // набор меток для обучения первой сети
-    for (int i  = 0; i < 10000; i++) { // забираем из общей выборки 10000 примеров
+    for (int i  = 0; i < numberOfSimple; i++) { // забираем из общей выборки 10000 примеров
         filtrTrainingSimples.push_back(trainSimples[i]);
         filtrLables.push_back(lables[i]);
     }
     cout << " Удаляю из выборки ненужные элементы, осталось ";
-    trainSimples.erase(trainSimples.begin(), trainSimples.begin()+10000);
-    lables.erase(lables.begin(), lables.begin()+10000);
+    trainSimples.erase(trainSimples.begin(), trainSimples.begin()+numberOfSimple);
+    lables.erase(lables.begin(), lables.begin()+numberOfSimple);
     cout << trainSimples.size() << " примеров и " << lables.size() << " меток\n";
     cout << "тренирую первую сеть  на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
     MrFirst.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
@@ -49,7 +50,7 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
     filtrTrainingSimples.clear();
     vector<int> indexes;
     int coin = flipACoin();
-    while ((filtrTrainingSimples.size() <= 10000) && (i < trainSimples.size())) {
+    while ((filtrTrainingSimples.size() <= numberOfSimple) && (i < trainSimples.size())) {
         MrFirst.directPropagation(trainSimples[i]);
         if (coin == EAGLE) {
             if (theTransformationOfTheVectorOfOutputSignals(lables[i]) == theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector())) {
