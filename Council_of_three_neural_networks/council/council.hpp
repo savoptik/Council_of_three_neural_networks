@@ -9,8 +9,7 @@
 #ifndef council_hpp
 #define council_hpp
 
-#include <stdio.h>
-#include "../network/network.hpp"
+#include "network/network.hpp"
 
 class council {
     network MrFirst; // первый эксперт
@@ -18,7 +17,8 @@ class council {
     network decisiveExpert; // решающий эксперт
     
 public:
-    council(const std::vector<int> numberOfNuerons, const int sizeOfVectorOfWeights); // конструктор, который сконструирует всех трёх экспертов
+    council() {}
+    council(std::vector<int>& numberOfNuerons, const int sizeOfVectorOfWeights); // конструктор, который сконструирует всех трёх экспертов
 };
 
 #endif /* council_hpp */

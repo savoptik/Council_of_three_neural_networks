@@ -14,6 +14,7 @@
 
 class network {
 public:
+    network() {}
     network(std::vector<int>& sizes, const int num, const int af, const double ap, const double bp=0);
     network(const std::string filePath);
     /**
