@@ -10,5 +10,15 @@
 #define council_hpp
 
 #include <stdio.h>
+#include "../network/network.hpp"
+
+class council {
+    network MrFirst; // первый эксперт
+    network MrSecond; // второй эксперт
+    network decisiveExpert; // решающий эксперт
+    
+public:
+    council(const std::vector<int> numberOfNuerons, const int sizeOfVectorOfWeights); // конструктор, который сконструирует всех трёх экспертов
+};
 
 #endif /* council_hpp */
