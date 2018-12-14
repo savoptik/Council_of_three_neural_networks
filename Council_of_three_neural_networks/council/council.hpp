@@ -11,10 +11,18 @@
 
 #include "network/network.hpp"
 
+const int EAGLE = 1, TAILS = 0; // орёл и решка
+
 class council {
     network MrFirst; // первый эксперт
     network MrSecond; // второй эксперт
     network decisiveExpert; // решающий эксперт
+    /**
+     Функция подбрасывает монетку
+
+     @return Возвращает 1 в случае орла, или 0 в случае решки
+     */
+    int flipACoin();
     
 public:
     council() {}

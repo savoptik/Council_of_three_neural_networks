@@ -8,6 +8,8 @@
 
 #include "council.hpp"
 #include <iostream>
+#include <random>
+#include <algorithm>
 using namespace std;
 
 council::council(std::vector<int>& numberOfNuerons, const int sizeOfVectorOfWeights) {
@@ -42,4 +44,11 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
     lables.erase(lables.begin(), lables.begin()+9999);
     cout << trainSimples.size() << " примеров и " << lables.size() << " меток\n";
 }
+
+int council::flipACoin() { 
+    default_random_engine dra(time(0));
+    uniform_int_distribution<> urd(0, 1);
+    return urd(dra);
+}
+
 
