@@ -65,9 +65,13 @@ void layer::toCalculateTheComponentOfTheVectorOfErrors(vector<double>& d) {
 }
 
 void layer::countTheWeightOnTheCurrentLayer(const double learningRate) { 
-    for (int i = 0; i < neurons.size(); i++) {
+    /*    for (int i = 0; i < neurons.size(); i++) {
+        neurons[i].weightChangeCalculation(learningRate); // вычесляем изменения векторов весов
+    } */
+    tbb::parallel_for(size_t(0), neurons.size(), [&](size_t i) {
         neurons[i].weightChangeCalculation(learningRate); // вычесляем изменения векторов весов
     }
+                      );
 }
 
 void layer::calculateLocalGradientsForTheCurrentLayer(layer &previousLayer) { 
