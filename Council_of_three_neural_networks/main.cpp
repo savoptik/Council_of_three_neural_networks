@@ -26,5 +26,13 @@ int main(int argc, const char * argv[]) {
     cout << "Готовлю сеть:\n";
     council couns = council(numbersOfNuerons, static_cast<int>(ds.training_images[0].size()));
     couns.train(trainData, convertResponse);
+    vector<vector<double>> testSimples, testLables;
+    imageConversion(ds.test_images, testSimples);
+    convertingLabels(ds.test_labels, testLables);
+    int good = 0;
+    for (int i = 0; i < testSimples.size(); i++) {
+        good = couns.predict(testSimples[i]) == theTransformationOfTheVectorOfOutputSignals(testLables[i])? good+1: good;
+    }
+    cout << "Доля успешных предсказаний " << double(good) / testSimples.size() << endl << "всё\n";
     return 0;
 }

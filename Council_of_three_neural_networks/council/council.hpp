@@ -34,6 +34,13 @@ public:
      @param lables вектор откликов
      */
     void train(std::vector<std::vector<double>>& trainSimples, std::vector<std::vector<double>>& lables);
+    /**
+     работа сети
+
+     @param example пример
+     @return номер распознаного класса
+     */
+    int predict(std::vector<double>& example);
 };
 
 void convertingLabels(std::vector<u_char>& inLables, std::vector<std::vector<double>>& lables);

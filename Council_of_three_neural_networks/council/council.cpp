@@ -103,6 +103,20 @@ int council::flipACoin() {
     return urd(dra);
 }
 
+int council::predict(std::vector<double> &example) { 
+    MrFirst.directPropagation(example);
+    int firstResponse = theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector());
+    MrSecond.directPropagation(example);
+    int secondResponse = theTransformationOfTheVectorOfOutputSignalsP(*MrSecond.accessToOutVector());
+    if (firstResponse == secondResponse) {
+        return firstResponse;
+    } else {
+        decisiveExpert.directPropagation(example);
+        return theTransformationOfTheVectorOfOutputSignalsP(*decisiveExpert.accessToOutVector());
+    }
+}
+
+
 void convertingLabels(std::vector<u_char>& inLables, std::vector<std::vector<double>>& lables) {
     // преобразуем вектор откликов к виду, в котором еденица означает число
     lables.resize(inLables.size());
