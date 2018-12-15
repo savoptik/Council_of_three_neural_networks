@@ -88,13 +88,13 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
         MrFirst.directPropagation(timeTrainingSimples[i]);
         MrSecond.directPropagation(timeTrainingSimples[i]);
         if (theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector()) != theTransformationOfTheVectorOfOutputSignalsP(*MrSecond.accessToOutVector())) {
-            trainSimples.push_back(timeTrainingSimples[i]);
-            lables.push_back(timeLables[i]);
+            filtrTrainingSimples.push_back(timeTrainingSimples[i]);
+            filtrLables.push_back(timeLables[i]);
         }
         i++;
     }
-    cout << "Обучаю решающую сеть на " << trainSimples.size() << " примерах и " << lables.size() << " метках\n";
-    decisiveExpert.train(trainSimples, lables, 0.01, 0.6, 100);
+    cout << "Обучаю решающую сеть на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
+    decisiveExpert.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
 }
 
 int council::flipACoin() { 

@@ -149,9 +149,9 @@ void network::train(std::vector<std::vector<double> > &TrainingSample, std::vect
         currentError = currentError / errors.size();
         errors.clear();
         era++;
-        if (era % 5 == 0) {
-            std::cout << "==" << std::endl << "Ошибка " << currentError << " после " << era << "-ой эпохи\n";
-        } else std::cout << "==";
+        if (era % 10 == 0) {
+            std::cout << "100" << std::endl << "Ошибка " << currentError << " после " << era << "-ой эпохи\n";
+        } else std::cout << ((era % 10) * 10) << " ";
     }
     cout << "Обучение завершилось за " << era << " эпох\n";
 }
