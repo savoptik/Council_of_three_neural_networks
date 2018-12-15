@@ -11,6 +11,7 @@
 #include <cmath>
 #include <algorithm>
 #include <random>
+#include <tbb/parallel_for.h>
 using namespace std;
 
 double layer::getError() { 
@@ -47,9 +48,13 @@ layer::layer(const int number, const int size, const int af, const double a, con
 }
 
 void layer::toCalculateTheOutputValuesForTheCurrentLayer(layer &previousLayer) {
-    for (int i = 0; i < neurons.size(); i++) { // едем по нейронам
+/*    for (int i = 0; i < neurons.size(); i++) { // едем по нейронам
+        neurons[i].theCalculationOfTheOutputValue(previousLayer.AccessToTheOutputVector()); // вычисляем выходные значения
+    } */
+    tbb::parallel_for(size_t(0), neurons.size(), [&](size_t i) {
         neurons[i].theCalculationOfTheOutputValue(previousLayer.AccessToTheOutputVector()); // вычисляем выходные значения
     }
+                      );
 }
 
 void layer::toCalculateTheComponentOfTheVectorOfErrors(vector<double>& d) { 
@@ -120,7 +125,11 @@ layer::layer(const int NumberOfNeurons, const int TheSizeOfTheVectorOfWeights) {
 }
 
 void layer::calculateTheOutputValuesByTheVectorOfTheInputSignals(std::vector<double> &inputSignals) { 
-    for (int i = 0; i < neurons.size(); i++) {
+    /*    for (int i = 0; i < neurons.size(); i++) {
+        neurons[i].theCalculationOfTheOutputValueFromInputSignal(inputSignals);
+     } */
+    tbb::parallel_for(size_t(0), neurons.size(), [&](size_t i) {
         neurons[i].theCalculationOfTheOutputValueFromInputSignal(inputSignals);
     }
+                      );
 }
