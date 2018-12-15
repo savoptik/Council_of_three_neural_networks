@@ -80,6 +80,21 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
     cout << "Осталось в основной выборке " << timeTrainingSimples.size() << " примеров и " << timeLables.size() << " меток\n";
     cout << "Обучаю вторую сеть на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
     MrSecond.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
+    cout << "Готовлю выборку для обучения решающего эксперта:\n";
+    filtrTrainingSimples.clear();
+    filtrLables.clear();
+    i = 0;
+    while ((filtrTrainingSimples.size() < numberOfSimple) && (i < timeTrainingSimples.size())) {
+        MrFirst.directPropagation(timeTrainingSimples[i]);
+        MrSecond.directPropagation(timeTrainingSimples[i]);
+        if (theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector()) != theTransformationOfTheVectorOfOutputSignalsP(*MrSecond.accessToOutVector())) {
+            trainSimples.push_back(timeTrainingSimples[i]);
+            lables.push_back(timeLables[i]);
+        }
+        i++;
+    }
+    cout << "Обучаю решающую сеть на " << trainSimples.size() << " примерах и " << lables.size() << " метках\n";
+    decisiveExpert.train(trainSimples, lables, 0.01, 0.6, 100);
 }
 
 int council::flipACoin() { 
