@@ -23,6 +23,7 @@ class council {
      @return Возвращает 1 в случае орла, или 0 в случае решки
      */
     int flipACoin();
+    void toCollectStatistics(std::vector<std::vector<double>>& lables);
     
 public:
     council() {}

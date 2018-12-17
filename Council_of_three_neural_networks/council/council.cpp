@@ -43,6 +43,7 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
     lables.erase(lables.begin(), lables.begin()+numberOfSimple);
     cout << trainSimples.size() << " примеров и " << lables.size() << " меток\n";
     cout << "тренирую первую сеть  на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
+    toCollectStatistics(filtrLables);
     MrFirst.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
     cout << "Отбираем примеры для обучения второй сети:\n";
     int i = 0;
@@ -50,7 +51,7 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
     filtrTrainingSimples.clear();
     vector<int> indexes;
     int coin = flipACoin();
-    while ((filtrTrainingSimples.size() < numberOfSimple) && (i < trainSimples.size())) {
+    while ((filtrTrainingSimples.size() < numberOfSimple)) {
         MrFirst.directPropagation(trainSimples[i]);
         if (coin == EAGLE) {
             if (theTransformationOfTheVectorOfOutputSignals(lables[i]) == theTransformationOfTheVectorOfOutputSignalsP(*MrFirst.accessToOutVector())) {
@@ -64,9 +65,11 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
                 indexes.push_back(i);
                 filtrTrainingSimples.push_back(trainSimples[i]);
                 filtrLables.push_back(lables[i]);
+                coin = flipACoin();
             }
         }
         i++;
+        i = i == trainSimples.size()? 0: i;
     }
     vector<vector<double>> timeTrainingSimples, timeLables;
     for (i = 0; i < trainSimples.size(); i++) {
@@ -79,6 +82,7 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
     lables.clear();
     cout << "Осталось в основной выборке " << timeTrainingSimples.size() << " примеров и " << timeLables.size() << " меток\n";
     cout << "Обучаю вторую сеть на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
+toCollectStatistics(filtrLables);
     MrSecond.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
     cout << "Готовлю выборку для обучения решающего эксперта:\n";
     filtrTrainingSimples.clear();
@@ -94,6 +98,7 @@ void council::train(std::vector<std::vector<double> > &trainSimples, std::vector
         i++;
     }
     cout << "Обучаю решающую сеть на " << filtrTrainingSimples.size() << " примерах и " << filtrLables.size() << " метках\n";
+    toCollectStatistics(filtrLables);
     decisiveExpert.train(filtrTrainingSimples, filtrLables, 0.01, 0.6, 100);
 }
 
@@ -115,6 +120,18 @@ int council::predict(std::vector<double> &example) {
         return theTransformationOfTheVectorOfOutputSignalsP(*decisiveExpert.accessToOutVector());
     }
 }
+
+void council::toCollectStatistics(std::vector<std::vector<double> > &lables) { 
+    std::vector<int> numbers;
+    numbers.resize(10);
+    for (int i = 0; i < lables.size(); i++) {
+        numbers[theTransformationOfTheVectorOfOutputSignals(lables[i])]++;
+    }
+    for (int i = 0; i < numbers.size(); i++) {
+        std::cout << i << ": " << numbers[i] << std::endl;
+    }
+}
+
 
 
 void convertingLabels(std::vector<u_char>& inLables, std::vector<std::vector<double>>& lables) {
